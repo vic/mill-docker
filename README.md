@@ -1,6 +1,6 @@
 # mill-docker
 
-A [mill](Mill) module for building minimalist [distroless](distroless) docker images
+A [Mill][mill] module for building minimalist [distroless][distroless] docker images
 for your java applications.
 
 Images 
@@ -9,9 +9,9 @@ Images
 
 Let your project extend `DockerModule`, define a `dockerMain` and `dockerTag`.
 
-See the example project buildfile: [`example/build.sc`](example)
+See the example project buildfile: [`example/build.sc`][example]
 
-Then invoke the `dockerBuild` task on your project.
+Then invoke the `dockerBuild` task on your project, like `mill hello.dockerBuild`
 
 [mill]: https://www.lihaoyi.com/mill
 [distroless]: https://github.com/GoogleContainerTools/distroless/tree/master/java
