@@ -4,9 +4,9 @@ jdk:
 before_install:
   - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.2.6/0.2.6) > ~/mill && chmod +x ~/mill'
 install:
-  - ~/mill publishLocal
+  - ~/mill docker.publishLocal
 script:
-  - (cd example; ~/mill example.dockerBuild)
+  - (cd example; ~/mill hello.dockerBuild)
   - docker run -i hello:latest
 
 

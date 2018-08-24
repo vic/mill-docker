@@ -11,7 +11,7 @@ object docker extends ScalaModule with PublishModule {
   def artifactName = "mill-docker"
 
   def pomSettings = PomSettings(
-    description = "Docker packaging support for Mill builds",
+    description = "Dockerize java applications on Mill builds",
     organization = "io.github.vic",
     url = "https://github.com/vic/mill-docker",
     licenses = Seq(License.`Apache-2.0`),

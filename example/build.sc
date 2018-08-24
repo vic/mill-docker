@@ -1,7 +1,13 @@
 // -*- mode: scala -*-
 
-import mill._, scalalib._
+// add mill-docker artifact repo
+import mill._
+interp.repositories() =
+  interp.repositories() ++ Seq(coursier.MavenRepository("https://jitpack.io"))
 
+@
+
+import mill._, scalalib._
 import $ivy.`io.github.vic::mill-docker:0.0.1`, mill.docker._
 
 
