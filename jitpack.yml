@@ -1,0 +1,8 @@
+jdk:
+  - openjdk10
+before_install:
+  - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.2.6/0.2.6) > ~/mill && chmod +x ~/mill'
+install:
+  - ~/mill publishLocal
+  - mkdir -p ~/.m2
+  - mv ~/.ivy2/local ~/.m2/repository
