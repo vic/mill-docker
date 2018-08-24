@@ -5,4 +5,4 @@ before_install:
 install:
   - ~/mill docker.publishLocal
   - mkdir -p ~/.m2
-  - mv ~/.ivy2/local ~/.m2/repository
+  - cp -rf ~/.ivy2/local ~/.m2/repository
