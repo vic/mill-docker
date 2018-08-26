@@ -4,5 +4,6 @@ before_install:
   - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.2.6/0.2.6) > ~/mill && chmod +x ~/mill'
 install:
   - ~/mill docker.publishLocal
-  - mkdir -p ~/.m2/repository/io/github/vic
-  - cp -rf ~/.ivy2/local/io.github.vic/* ~/.m2/repository/io/github/vic
+  - cp -vrf ~/.ivy2/local out/ivy2
+  - mkdir -vp ~/.m2/repository/io/github/vic
+  - cp -vrf ~/.ivy2/local/io.github.vic/* ~/.m2/repository/io/github/vic
