@@ -9,6 +9,6 @@ before_install:
 install:
   - ~/mill docker.publishLocal
 script:
-  - (cd example; ~/mill hello.dockerBuild)
+  - (cd example; ~/mill -i hello.dockerBuild)
   - docker run -i hello:latest
 
