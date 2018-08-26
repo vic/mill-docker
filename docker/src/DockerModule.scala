@@ -22,6 +22,7 @@ trait DockerModule extends Module {
 
   def dockerBuild = T {
     val dest = T.ctx().dest
+    val tag = dockerTag()
 
     val file:Path = dest / "Dockerfile"
     write(file, dockerFile())
@@ -29,8 +30,13 @@ trait DockerModule extends Module {
     val singleJar:PathRef = assembly()
     cp(singleJar.path, dest/"app.jar")
 
-    %('docker, 'build, "-f", file, "-t", dockerTag(), dest)
-    (singleJar, file)
+    %('docker, 'build, "-f", file, "-t", tag, dest)
+    (singleJar, file, tag)
+  }
+
+  def dockerPush = T {
+    val build = dockerBuild()
+    %('docker, 'push, build._3)
   }
 
 }
