@@ -22,7 +22,7 @@ interp.repositories() =
 import mill._, scalalib._
 
 // import mill-docker
-import $ivy.`io.github.vic::mill-docker:0.0.1`, mill.docker._
+import $ivy.`io.github.vic::mill-docker:0.0.2`, mill.docker._
 
 // let your project extend DockerModule
 object hello extends ScalaModule with DockerModule {
