@@ -6,7 +6,7 @@ object docker extends ScalaModule with PublishModule {
 
   def scalaVersion = "2.12.6"
 
-  def publishVersion = "master-SNAPSHOT"
+  def publishVersion = "0.0.1"
 
   def artifactName = "mill-docker"
 

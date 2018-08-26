@@ -12,4 +12,3 @@ script:
   - (cd example; ~/mill hello.dockerBuild)
   - docker run -i hello:latest
 
-
