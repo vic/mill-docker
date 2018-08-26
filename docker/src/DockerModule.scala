@@ -23,13 +23,13 @@ trait DockerModule extends Module {
   def dockerBuild = T {
     val dest = T.ctx().dest
 
-    val file:PathRef = T.ctx().dest / "Dockerfile"
+    val file:Path = dest / "Dockerfile"
     write(file, dockerFile())
 
     val singleJar:PathRef = assembly()
     cp(singleJar.path, dest/"app.jar")
 
-    %('docker, 'build, "-f", file.path, "-t", dockerTag(), dest)
+    %('docker, 'build, "-f", file, "-t", dockerTag(), dest)
     (singleJar, file)
   }
 
