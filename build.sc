@@ -1,6 +1,6 @@
 // -*- mode: scala -*- 
 
-import mill._, scalalib._, publish._
+import mill._, scalalib._, publish._, ammonite.ops._, ImplicitWd._
 
 object docker extends ScalaModule with PublishModule {
 
@@ -9,6 +9,14 @@ object docker extends ScalaModule with PublishModule {
   def publishVersion = "0.0.1"
 
   def artifactName = "mill-docker"
+
+  def m2 = T {
+    val pa = publishArtifacts()
+    val wd = T.ctx().dest
+    val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
+    mkdir(ad)
+    pa.payload.map { case (f,n) => cp(f.path, ad/n) }
+  }
 
   def pomSettings = PomSettings(
     description = "Dockerize java applications on Mill builds",
