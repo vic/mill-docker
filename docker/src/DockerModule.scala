@@ -29,7 +29,7 @@ trait DockerModule extends Module {
     val singleJar:PathRef = assembly()
     cp(singleJar.path, dest/"app.jar")
 
-    %('docker, 'build, "-f", file, "-t", dockerTag(), dest)
+    %('docker, 'build, "-f", file.path, "-t", dockerTag(), dest)
     (singleJar, file)
   }
 
