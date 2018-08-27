@@ -5,7 +5,7 @@
 A [Mill][mill] module for building minimal [distroless][distroless] docker images from your java applications.
 
 The generated docker image contains only your application's _assembly_ jar and the java runtime, but no linux
-distribution to maintain. That means the image size is small as it can get.
+distribution to maintain. That means the image size is as small as it can get without actually turning your app into a native binary (with graalvm for example).
 
 ## Usage
 
