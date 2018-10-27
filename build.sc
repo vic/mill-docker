@@ -1,12 +1,12 @@
-// -*- mode: scala -*- 
+// -*- mode: scala -*-
 
 import mill._, scalalib._, publish._, ammonite.ops._, ImplicitWd._
 
 object docker extends ScalaModule with PublishModule {
 
-  def scalaVersion = "2.12.6"
+  def scalaVersion = "2.12.7"
 
-  def publishVersion = "0.0.3"
+  def publishVersion = "0.0.4"
 
   def artifactName = "mill-docker"
 
@@ -30,7 +30,7 @@ object docker extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:0.2.3",
+    ivy"com.lihaoyi::mill-scalalib:0.3.3",
   )
 
 }

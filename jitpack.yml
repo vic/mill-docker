@@ -1,7 +1,7 @@
 jdk:
   - openjdk10
 before_install:
-  - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.2.6/0.2.6) > ~/mill && chmod +x ~/mill'
+  - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.3.3/0.3.3) > ~/mill && chmod +x ~/mill'
 install:
   - ~/mill -i docker.m2
   - mkdir -p ~/.m2/
