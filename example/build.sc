@@ -10,12 +10,12 @@ interp.repositories() =
 import mill._, scalalib._
 
 // import mill-docker
-import $ivy.`io.github.vic::mill-docker:0.0.3`, mill.docker._
+import $ivy.`io.github.vic::mill-docker:0.0.4`, mill.docker._
 
 
 object hello extends ScalaModule with DockerModule {
 
-  def scalaVersion = "2.12.6"
+  def scalaVersion = "2.12.7"
   def dockerTag = "hello:latest"
 
   // optionally provide default arguments to your program
