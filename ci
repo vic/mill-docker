@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -ex
+
+MODULE=docker
+JITPACK_URL=https://jitpack.io/com/github/$TRAVIS_REPO_SLUG
+
+test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
+which asdf && asdf current
+
+case "$*" in
+
+ "") 
+  $0 install
+  $0 test
+ ;;
+
+ install)
+   mill -i $MODULE.publishLocal
+ ;;
+
+ jitpack)
+   mill -i $MODULE.m2
+   mkdir -p ~/.m2
+   cp -rv out/$MODULE/m2/dest/ ~/.m2/repository
+ ;;
+
+ "jitpack build")
+   curl -fL $JITPACK_URL/$TRAVIS_COMMIT/build.log
+ ;;
+
+ "asdf install")
+   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+   source ~/.asdf/asdf.sh
+   cat .tool-versions | cut -d' ' -f 1 | xargs -IX asdf plugin-add X
+   asdf install
+ ;;
+
+ test)
+   (cd example; mill -i hello.dockerBuild)
+   docker run -i hello:latest
+ ;;
+  
+esac

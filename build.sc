@@ -6,9 +6,12 @@ import publish._
 
 object docker extends ScalaModule with PublishModule {
 
-  def scalaVersion = "2.12.7"
 
-  def publishVersion = "0.0.5"
+  def publishVersion = os.read(os.pwd / "VERSION").trim
+
+  // use versions installed from .tool-versions
+  def scalaVersion = scala.util.Properties.versionNumberString
+  def millVersion = System.getProperty("MILL_VERSION")
 
   def artifactName = "mill-docker"
 
@@ -16,7 +19,7 @@ object docker extends ScalaModule with PublishModule {
     val pa = publishArtifacts()
     val wd = T.ctx().dest
     val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
-    os.makeDir(ad)
+    os.makeDir.all(ad)
     pa.payload.map { case (f,n) => os.copy(f.path, ad/n) }
   }
 
@@ -32,7 +35,7 @@ object docker extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:0.3.5",
+    ivy"com.lihaoyi::mill-scalalib:${millVersion}",
   )
 
 }
