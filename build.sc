@@ -16,8 +16,8 @@ object docker extends ScalaModule with PublishModule {
     val pa = publishArtifacts()
     val wd = T.ctx().dest
     val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
-    mkdir(ad)
-    pa.payload.map { case (f,n) => cp(f.path, ad/n) }
+    os.makeDir(ad)
+    pa.payload.map { case (f,n) => os.copy(f.path, ad/n) }
   }
 
   def pomSettings = PomSettings(
