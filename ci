@@ -25,7 +25,11 @@ case "$*" in
  ;;
 
  "jitpack build")
-   curl -fL $JITPACK_URL/$TRAVIS_COMMIT/build.log
+   curl -NvfL $JITPACK_URL/$TRAVIS_COMMIT/build.log
+ ;;
+
+ "jitpack release")
+   curl -NvfL $JITPACK_URL/$TRAVIS_TAG/build.log
  ;;
 
  "asdf install")
