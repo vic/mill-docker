@@ -5,10 +5,10 @@ language: java
 jdk:
   - openjdk10
 before_install:
-  - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.3.3/0.3.3) > ~/mill && chmod +x ~/mill'
+  - ./ci asdf install
 install:
-  - ~/mill docker.publishLocal
+  - ./ci install
 script:
-  - (cd example; ~/mill -i hello.dockerBuild)
-  - docker run -i hello:latest
+  - ./ci test
+  - ./ci jitpack release
 

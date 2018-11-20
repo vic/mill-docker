@@ -1,9 +1,6 @@
 package mill.docker
 
 import mill._
-import ammonite.ops._
-import ImplicitWd._
-import pprint._
 
 trait DockerModule extends Module {
 
@@ -39,19 +36,19 @@ trait DockerModule extends Module {
     val dest = T.ctx().dest
     val tag = dockerTag()
 
-    val file:Path = dest / "Dockerfile"
-    write(file, dockerFile())
+    val file: os.Path = dest / "Dockerfile"
+    os.write(file, dockerFile())
 
-    val jar:PathRef = dockerJar()
-    cp(jar.path, dest/"app.jar")
+    val jar: PathRef = dockerJar()
+    os.copy(jar.path, dest/"app.jar")
 
-    %('docker, 'build, "-f", file, "-t", tag, dest)
+    os.proc('docker, 'build, "-f", file, "-t", tag, dest).call()
     (jar, file, tag)
   }
 
   def dockerPush = T {
     val (_, _, tag) = dockerBuild()
-    %('docker, 'push, tag)
+    os.proc('docker, 'push, tag).call()
   }
 
 }
