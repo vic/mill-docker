@@ -6,7 +6,7 @@ object docker extends ScalaModule with PublishModule {
 
   def scalaVersion = "2.12.7"
 
-  def publishVersion = "0.0.4"
+  def publishVersion = "0.0.5"
 
   def artifactName = "mill-docker"
 
@@ -30,7 +30,7 @@ object docker extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:0.3.3",
+    ivy"com.lihaoyi::mill-scalalib:0.3.5",
   )
 
 }
