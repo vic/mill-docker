@@ -1,6 +1,8 @@
 // -*- mode: scala -*-
 
-import mill._, scalalib._, publish._, ammonite.ops._, ImplicitWd._
+import mill._
+import scalalib._
+import publish._
 
 object docker extends ScalaModule with PublishModule {
 
