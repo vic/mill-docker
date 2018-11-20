@@ -29,7 +29,9 @@ case "$*" in
  ;;
 
  "jitpack release")
-   curl -NvfL $JITPACK_URL/$TRAVIS_TAG/build.log
+   if [ ! -z "$TRAVIS_TAG" ]; then
+     curl -NvfL $JITPACK_URL/$TRAVIS_TAG/build.log
+   fi
  ;;
 
  "asdf install")

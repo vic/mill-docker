@@ -17,5 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Scala and mill versions are managed from `.tool-versions` file.
   The VERSION specifies this project's version number.
 
-[Unreleased]: https://github.com/vic/mill-dotenv/compare/0.0.5...HEAD
-[0.0.5]: https://github.com/vic/mill-dotenv/compare/0.0.4...0.0.5
+[Unreleased]: https://github.com/vic/mill-docker/compare/0.0.5...HEAD
+[0.0.5]: https://github.com/vic/mill-docker/compare/0.0.4...0.0.5
