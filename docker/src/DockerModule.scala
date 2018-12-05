@@ -1,17 +1,29 @@
 package mill.docker
 
 import mill._
+import mill.scalalib.JavaModule
+import mill.modules.Jvm.{createAssembly}
 
-trait DockerModule extends Module {
+
+trait DockerModule extends JavaModule {
 
   def finalMainClass: T[String]
   def assembly: T[PathRef]
 
   def dockerTag: T[String]
-  def dockerJar = T[PathRef] { assembly() }
   def dockerMain = T[String] { finalMainClass() }
   def dockerJavaOpts = T[Seq[String]] { Seq() }
   def dockerMainArgs = T[Seq[String]] { Seq() }
+
+  def dockerJar = T[PathRef] {
+    createAssembly(
+      Agg.from(localClasspath().map(_.path)),
+      None /* main=None, to always create a fat jar, not an executable like mill's assembly does */,
+      "" /* no prepend script */,
+      Some(upstreamAssembly().path),
+      assemblyRules
+    )
+  }
 
   def dockerBaseImage: T[String] = "gcr.io/distroless/java:latest"
 
