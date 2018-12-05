@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.6] - 2018-12-05
 
 ### Changed
-- Dont use mill's `assembly` (as sometimes it generated an executable) instead make `dockerJar` create its own fat jat. Fixes #1
+- Dont use mill's `assembly` (as sometimes it generated an executable) instead make `dockerJar` create its own fat jar. Fixes vic/mill-docker#5.
 
 ## [0.0.5] - 2018-11-20
 
