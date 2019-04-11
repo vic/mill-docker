@@ -3,6 +3,7 @@ package mill.docker
 import mill._
 import mill.scalalib.JavaModule
 import mill.modules.Jvm.{createAssembly}
+import os.Shellable.IterableShellable
 
 
 trait DockerModule extends JavaModule {
@@ -54,7 +55,8 @@ trait DockerModule extends JavaModule {
     val jar: PathRef = dockerJar()
     os.copy(jar.path, dest/"app.jar")
 
-    os.proc('docker, 'build, "-f", file, "-t", tag, dest).call()
+    val pullLatestBase = IterableShellable(if(dockerBaseImage().endsWith(":latest")) Some("--pull") else None)
+    os.proc('docker, 'build, "-f", file, "-t", tag, pullLatestBase, dest).call()
     (jar, file, tag)
   }
 
