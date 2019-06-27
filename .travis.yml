@@ -1,9 +1,7 @@
 sudo: required
 services:
   - docker
-language: java
-jdk:
-  - openjdk10
+language: minimal
 before_install:
   - ./ci asdf install
 install:
