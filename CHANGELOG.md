@@ -3,7 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.1.1 - [Unreleased]
+## 0.2.1 - [Unreleased]
+
+## [0.2.0] - 2019-09-05
+
+### Changed
+- Upgrade to Mill 0.5.1 and Scala 2.12.9
 
 ## [0.1.0] - 2019-06-27
 
@@ -32,7 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Scala and mill versions are managed from `.tool-versions` file.
   The VERSION specifies this project's version number.
 
-[Unreleased]: https://github.com/vic/mill-docker/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/vic/mill-docker/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/vic/mill-docker/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/vic/mill-docker/compare/0.0.7...0.1.0
 [0.0.7]: https://github.com/vic/mill-docker/compare/0.0.6...0.0.7
 [0.0.6]: https://github.com/vic/mill-docker/compare/0.0.5...0.0.6

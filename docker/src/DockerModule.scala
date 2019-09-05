@@ -17,11 +17,10 @@ trait DockerModule extends JavaModule {
 
   def dockerJar = T[PathRef] {
     createAssembly(
-      Agg.from(localClasspath().map(_.path)),
-      None /* main=None, to always create a fat jar, not an executable like mill's assembly does */,
-      "" /* no prepend script */,
-      Some(upstreamAssembly().path),
-      assemblyRules
+      inputPaths = Agg.from(localClasspath().map(_.path)),
+      prependShellScript = "" /* no prepend script */,
+      base = Some(upstreamAssembly().path),
+      assemblyRules = assemblyRules
     )
   }
 
