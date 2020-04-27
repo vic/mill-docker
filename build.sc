@@ -1,8 +1,10 @@
 // -*- mode: scala -*-
 
+import $ivy.`io.get-coursier:interface:0.0.21`
+
 // Dont use sonatype's maven-central as it timeouts in travis.
 interp.repositories() =
-  List(coursier.MavenRepository("https://jcenter.bintray.com"))
+  List(coursierapi.MavenRepository.of("https://jcenter.bintray.com"))
 
 @
 
@@ -11,8 +13,6 @@ import scalalib._
 import publish._
 
 object docker extends ScalaModule with PublishModule {
-
-
   def publishVersion = os.read(os.pwd / "VERSION").trim
 
   // use versions installed from .tool-versions
