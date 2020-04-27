@@ -4,8 +4,13 @@ set -ex
 MODULE=docker
 JITPACK_URL=https://jitpack.io/com/github/$TRAVIS_REPO_SLUG
 
+mkdir -p $HOME/bin
+export PATH=$HOME/bin:$PATH
 test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
-which asdf && asdf current
+
+whoami
+env
+which asdf || echo "no asdf"
 
 case "$*" in
 
@@ -34,16 +39,26 @@ case "$*" in
    fi
  ;;
 
+ "jitpack deps")
+     # asdf depends on column and asdf-java depends on jq,
+     # however it seems there's no way to install system dependencies on jitpack container.
+     # We just install mill and set a jdk on jitpack.yml
+     echo installing mill via curl
+     mill_version=$(< .mill-version)
+     curl -o $HOME/bin/mill -L https://github.com/lihaoyi/mill/releases/download/$mill_version/$mill_version
+     chmod +x $HOME/bin/mill
+ ;;
+
  "asdf install")
    git clone https://github.com/asdf-vm/asdf.git ~/.asdf
    source ~/.asdf/asdf.sh
    cat .tool-versions | cut -d' ' -f 1 | xargs -IX asdf plugin-add X
-   asdf install
+   asdf install # install all from .tool-versions
  ;;
 
  test)
    (cd example; mill -i hello.dockerBuild)
    docker run -i hello:latest
  ;;
-  
+
 esac
