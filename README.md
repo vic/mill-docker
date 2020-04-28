@@ -1,7 +1,7 @@
 # mill-docker
 
 [![Jitpack](https://jitpack.io/v/vic/mill-docker.svg)](https://jitpack.io/#vic/mill-docker)
-[![Build Status](https://travis-ci.org/vic/mill-docker.svg?branch=master)](https://travis-ci.org/vic/mill-docker)
+![Main workflow](https://github.com/vic/mill-docker/workflows/Main%20workflow/badge.svg)
 
 A [Mill][mill] module for building minimal [distroless][distroless] docker images from your java applications.
 

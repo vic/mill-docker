@@ -1,0 +1,43 @@
+name: Main workflow
+
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    paths-ignore:
+      - "**.md"
+  schedule:
+    - cron: "0 0 * * 5"
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Asdf install
+        uses: asdf-vm/actions/install@v1.0.0
+      - name: Test
+        run:  ./ci test
+
+  jitpack-commit:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: JitPack commit build
+        run: curl -vSL https://jitpack.io/com/github/$GITHUB_REPOSITORY/$GITHUB_SHA/build.log || true
+
+  jitpack-release:
+    needs: test
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'tags')
+    steps:
+      - name: JitPack release build
+        run: |
+          curl -vSL https://jitpack.io/com/github/$GITHUB_REPOSITORY/$(echo "${{github.ref}}" | sed 's#tags/##')/build.log || true
