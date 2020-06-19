@@ -8,26 +8,17 @@ interp.repositories() =
 
 @
 
+val crossVersions = Seq("2.13.2", "2.12.11")
+
 import mill._
 import scalalib._
 import publish._
 
-object docker extends ScalaModule with PublishModule {
+object docker extends Cross[Docker](crossVersions: _*)
+class Docker(val crossScalaVersion: String) extends CrossScalaModule with PublishModule {
   def publishVersion = os.read(os.pwd / "VERSION").trim
 
-  // use versions installed from .tool-versions
-  def scalaVersion = scala.util.Properties.versionNumberString
-  def millVersion = System.getProperty("MILL_VERSION")
-
   def artifactName = "mill-docker"
-
-  def m2 = T {
-    val pa = publishArtifacts()
-    val wd = T.ctx().dest
-    val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
-    os.makeDir.all(ad)
-    pa.payload.map { case (f,n) => os.copy(f.path, ad/n) }
-  }
 
   def pomSettings = PomSettings(
     description = "Dockerize java applications on Mill builds",
@@ -41,6 +32,6 @@ object docker extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:${millVersion}",
+    ivy"com.lihaoyi::mill-scalalib:latest.stable"
   )
 }

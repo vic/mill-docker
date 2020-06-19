@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Upgrade to Mill 0.7.x and Scala 2.12.11
+- Change to CrossScalaModule for 2.12 and 2.13
 
 ## [0.2.0] - 2019-09-05
 
