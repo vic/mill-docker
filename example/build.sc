@@ -16,8 +16,7 @@ import $ivy.`io.github.vic::mill-docker:0.4.0`, mill.docker._
 
 
 object hello extends ScalaModule with DockerModule {
-
-  def scalaVersion = "2.12.11"
+  def scalaVersion = "2.13.2"
   def dockerTag = "hello:latest"
 
   // optionally provide default arguments to your program

@@ -7,9 +7,7 @@ export PATH=$HOME/bin:$PATH
 case "$*" in
 
  jitpack)
-   mill -i _.m2
-   mkdir -p ~/.m2
-   cp -rv out/*/m2/dest/ ~/.m2/repository
+   mill -i __.publishM2Local
  ;;
 
 
@@ -25,7 +23,7 @@ case "$*" in
 
 
  test)
-   mill -i _.publishLocal
+   mill -i __.publishLocal
    (cd example; mill -i hello.dockerBuild)
    docker run -i hello:latest
  ;;
