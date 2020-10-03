@@ -1,23 +1,18 @@
 // -*- mode: scala -*-
 
-import $ivy.`io.get-coursier:interface:0.0.21`
-
-// add mill-docker artifact repo
-import mill._
-interp.repositories() =
-  interp.repositories() ++ Seq(coursierapi.MavenRepository.of("https://jitpack.io"))
-
-@
+import $repo.`https://jitpack.io`
 
 import mill._, scalalib._
 
-// import mill-docker
-import $ivy.`io.github.vic::mill-docker:0.5.0`, mill.docker._
+import $ivy.`io.github.vic::mill-docker:latest`
+import mill.docker._
 
 
 object hello extends ScalaModule with DockerModule {
   def scalaVersion = "2.13.2"
   def dockerTag = "hello:latest"
+
+  override def finalMainClass = T("example.hello")
 
   // optionally provide default arguments to your program
   // def dockerMainArgs = Seq("world")

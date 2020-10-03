@@ -11,7 +11,8 @@ on:
     - cron: "0 0 * * 5"
 
 jobs:
-  test:
+
+  scalafmt:
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -19,20 +20,35 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Test
-        run:  ./ci test
+      - uses: actions/checkout@v2
+      - uses: coursier/cache-action@v3
+        with:
+          extraFiles: cs
+      - run:  ./ci scalafmt-test
+
+  example:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: coursier/cache-action@v3
+        with:
+          extraFiles: cs
+      - run:  ./ci example
 
   jitpack-commit:
-    needs: test
+    needs: example
     runs-on: ubuntu-latest
     steps:
       - name: JitPack commit build
         run: curl -vSL https://jitpack.io/com/github/$GITHUB_REPOSITORY/$GITHUB_SHA/build.log || true
 
   jitpack-release:
-    needs: test
+    needs: example
     runs-on: ubuntu-latest
     if: contains(github.ref, 'tags')
     steps:
