@@ -1,22 +1,28 @@
 // -*- mode: scala -*-
 
-import $ivy.`io.get-coursier:interface:0.0.21`
+import mill._, scalalib._, publish._
+import ammonite.ops._
+import scala.util.Properties
 
-// Dont use sonatype's maven-central as it timeouts in travis.
-interp.repositories() =
-  List(coursierapi.MavenRepository.of("https://jcenter.bintray.com"))
+object meta {
+  val crossVersions = Seq("2.13.2", "2.12.11")
 
-@
+  implicit val wd: os.Path = os.pwd
 
-val crossVersions = Seq("2.13.2", "2.12.11")
+  def nonEmpty(s: String): Option[String] = s.trim match {
+    case v if v.isEmpty => None
+    case v => Some(v)
+  }
 
-import mill._
-import scalalib._
-import publish._
+  val versionFromEnv = Properties.propOrNone("PUBLISH_VERSION")
+  val gitSha = nonEmpty(%%("git", "rev-parse", "--short", "HEAD").out.trim)
+  val gitTag = nonEmpty(%%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim)
+  val publishVersion = (versionFromEnv orElse gitTag orElse gitSha).getOrElse("latest")
+}
 
-object docker extends Cross[Docker](crossVersions: _*)
+object docker extends Cross[Docker](meta.crossVersions: _*)
 class Docker(val crossScalaVersion: String) extends CrossScalaModule with PublishModule {
-  def publishVersion = os.read(os.pwd / "VERSION").trim
+  def publishVersion = meta.publishVersion
 
   def artifactName = "mill-docker"
 
