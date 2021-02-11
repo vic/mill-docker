@@ -14,6 +14,7 @@ object meta {
     case v => Some(v)
   }
 
+  val MILL_VERSION = Properties.propOrNull("MILL_VERSION")
   val versionFromEnv = Properties.propOrNone("PUBLISH_VERSION")
   val gitSha = nonEmpty(%%("git", "rev-parse", "--short", "HEAD").out.trim)
   val gitTag = nonEmpty(%%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim)
@@ -28,7 +29,7 @@ class Docker(val crossScalaVersion: String) extends CrossScalaModule with Publis
 
   def pomSettings = PomSettings(
     description = "Dockerize java applications on Mill builds",
-    organization = "io.github.vic",
+    organization = "com.github.vic",
     url = "https://github.com/vic/mill-docker",
     licenses = Seq(License.`Apache-2.0`),
     versionControl = VersionControl.github("vic", "mill-docker"),
@@ -38,6 +39,6 @@ class Docker(val crossScalaVersion: String) extends CrossScalaModule with Publis
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:latest.stable"
+    ivy"com.lihaoyi::mill-scalalib:${meta.MILL_VERSION}"
   )
 }
