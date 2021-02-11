@@ -5,7 +5,7 @@ import ammonite.ops._
 import scala.util.Properties
 
 object meta {
-  val crossVersions = Seq("2.13.2", "2.12.11")
+  val crossVersions = Seq("2.13.2")
 
   implicit val wd: os.Path = os.pwd
 
