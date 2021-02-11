@@ -1,15 +1,14 @@
 // -*- mode: scala -*-
 
-import $repo.`https://jitpack.io`
-
 import mill._, scalalib._
 
-import $ivy.`io.github.vic::mill-docker:latest`
+import $ivy.`com.github.vic::mill-docker:latest`
 import mill.docker._
 
 
 object hello extends ScalaModule with DockerModule {
-  def scalaVersion = "2.13.2"
+
+  override def scalaVersion = scala.util.Properties.versionNumberString
   def dockerTag = "hello:latest"
 
   override def finalMainClass = T("example.hello")
