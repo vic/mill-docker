@@ -1,13 +1,12 @@
 // -*- mode: scala -*-
 
-import mill._, scalalib._, publish._
-import ammonite.ops._
+import mill._, os._, scalalib._, publish._
 import scala.util.Properties
 
 object meta {
-  val crossVersions = Seq("2.13.6")
+  val crossVersions = Seq("2.13.8")
 
-  implicit val wd: os.Path = os.pwd
+  implicit val wd: Path = pwd
 
   def nonEmpty(s: String): Option[String] = s.trim match {
     case v if v.isEmpty => None
@@ -16,8 +15,8 @@ object meta {
 
   val MILL_VERSION = Properties.propOrNull("MILL_VERSION")
   val versionFromEnv = Properties.propOrNone("PUBLISH_VERSION")
-  val gitSha = nonEmpty(%%("git", "rev-parse", "--short", "HEAD").out.trim)
-  val gitTag = nonEmpty(%%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim)
+  val gitSha = nonEmpty(proc("git", "rev-parse", "--short", "HEAD").call().out.trim)
+  val gitTag = nonEmpty(proc("git", "tag", "-l", "-n0", "--points-at", "HEAD").call().out.trim)
   val publishVersion = (versionFromEnv orElse gitTag orElse gitSha).getOrElse("latest")
 }
 

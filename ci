@@ -15,15 +15,15 @@ case "$1" in
  ;;
 
  mill)
-   exec $0 cs launch --jvm graalvm:19.0.2 --scala 2.13.3 mill -- "${@:2}"
+   exec $0 cs launch --scala 2.13.8 mill -- "${@:2}"
  ;;
 
  mill-i)
-   exec $0 cs launch --jvm graalvm:19.0.2 --scala 2.13.3 mill-interactive -- -i "${@:2}"
+   exec $0 cs launch --scala 2.13.8 mill-interactive -- -i "${@:2}"
  ;;
 
  scalafmt)
-   exec $0 cs launch --jvm graalvm:19.0.2 --scala 2.13.3 scalafmt -- --mode diff --diff-branch master "${@:2}"
+   exec $0 cs launch --scala 2.13.8 scalafmt -- --mode diff --diff-branch master "${@:2}"
  ;;
 
  scalafmt-test)
