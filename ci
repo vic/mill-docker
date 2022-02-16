@@ -23,7 +23,7 @@ case "$1" in
  ;;
 
  scalafmt)
-   exec $0 cs launch --scala 2.13.8 scalafmt -- --mode diff --diff-branch master "${@:2}"
+   exec $0 cs launch --scala 2.13.8 scalafmt -- --diff "${@:2}"
  ;;
 
  scalafmt-test)
@@ -39,7 +39,7 @@ case "$1" in
  ;;
 
  example)
-  $0 mill-i -j 0 -D PUBLISH_VERSION=latest __.publishLocal
+  $0 mill -i -j 0 -D PUBLISH_VERSION=latest __.publishLocal
   (cd example; ../ci mill hello.dockerBuild)
   docker run -i hello:latest
  ;;
