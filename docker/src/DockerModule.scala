@@ -1,9 +1,7 @@
 package mill.docker
 
 import mill._
-import mill.scalalib.JavaModule
-import mill.modules.Jvm.{createAssembly}
-
+import mill.scalalib.{Assembly, JavaModule}
 
 trait DockerModule extends JavaModule {
 
@@ -16,7 +14,7 @@ trait DockerModule extends JavaModule {
   def dockerMainArgs = T[Seq[String]] { Seq() }
 
   def dockerJar = T[PathRef] {
-    createAssembly(
+    Assembly.createAssembly(
       inputPaths = Agg.from(localClasspath().map(_.path)),
       prependShellScript = "" /* no prepend script */,
       base = Some(upstreamAssembly().path),

@@ -20,8 +20,8 @@ object meta {
   val publishVersion = (versionFromEnv orElse gitTag orElse gitSha).getOrElse("latest")
 }
 
-object docker extends Cross[Docker](meta.crossVersions: _*)
-class Docker(val crossScalaVersion: String) extends CrossScalaModule with PublishModule {
+object docker extends Cross[Docker](meta.crossVersions)
+trait Docker extends CrossScalaModule with PublishModule {
   def publishVersion = meta.publishVersion
 
   def artifactName = "mill-docker"
